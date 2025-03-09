@@ -17,7 +17,10 @@ FakeDeafen is a simple yet effective BetterDiscord plugin that adds a **fake dea
 2️⃣ **Move** the file into your BetterDiscord plugins folder.  
    - Open Discord and go to **User Settings > Plugins**.  
    - Click **"Open Plugins Folder"** and drop the file there.  
-3️⃣ **Enable** the plugin in the BetterDiscord settings.  
+3️⃣ **Enable** the plugin in the BetterDiscord settings.
+
+## 📽 Video Guide
+🔍 https://www.youtube.com/watch?v=Aa66fB_SWnU
 
 ## ⚙️ How It Works  
 🔍 The plugin intercepts WebSocket messages and detects when the deafen button is used. It then **hides the real button** and replaces it with a fake red button.  
