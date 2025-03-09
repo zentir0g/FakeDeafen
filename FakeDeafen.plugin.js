@@ -3,6 +3,7 @@
  * @author Harry Uchiha
  * @description Creates a fake deafen button that does nothing while keeping the real functionality hidden.
  * @version 1.0.0
+ * @support : https://discord.gg/W6JfvA4y66
  * @license MIT
  */
 
