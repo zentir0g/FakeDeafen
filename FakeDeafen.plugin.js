@@ -1,25 +1,28 @@
 /**
  * @name FakeDeafen
- * @author Harry Uchiha
- * @description Creates a fake deafen button that does nothing while keeping the real functionality hidden.
+ * @author Harry Uchiha (z_zx)
+ * @authorId 333014456399560705
  * @version 1.0.0
- * @support : https://discord.gg/W6JfvA4y66
- * @license MIT
+ * @description Creates a fake deafen button that does nothing while keeping the real functionality hidden.
+ * @invite W6JfvA4y66
  */
 
 module.exports = class FakeDeafen {
     constructor() {
         this.deafenRegex = /self_deafs.truem/;
         this.decoder = new TextDecoder();
+        this.observer = null;
     }
 
     start() {
         this.hookWebSocket();
+        this.observeButtons();
     }
 
     stop() {
         WebSocket.prototype.send = WebSocket.prototype._send;
         this.removeFakeButton();
+        if (this.observer) this.observer.disconnect();
     }
 
     hookWebSocket() {
@@ -36,20 +39,26 @@ module.exports = class FakeDeafen {
         };
     }
 
-    static addFakeButton() {
-        if (!document.querySelector("button[aria-label='Deafen'][style]")) {
-            let deafenBtn = document.querySelector("button[aria-label='Deafen']");
-            if (!deafenBtn) return;
+    observeButtons() {
+        const observer = new MutationObserver(() => FakeDeafen.addFakeButton());
+        this.observer = observer;
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
 
-            let fakeDeafenBtn = deafenBtn.cloneNode(true);
-            fakeDeafenBtn.style.backgroundColor = 'red';
-            fakeDeafenBtn.onclick = () => window.deafen();
-            deafenBtn.parentNode.insertBefore(fakeDeafenBtn, deafenBtn);
-        }
+    static addFakeButton() {
+        let deafenBtn = document.querySelector("button[aria-label='Deafen']");
+        if (!deafenBtn || document.querySelector("#fakeDeafenBtn")) return;
+
+        let fakeDeafenBtn = deafenBtn.cloneNode(true);
+        fakeDeafenBtn.id = "fakeDeafenBtn";
+        fakeDeafenBtn.style.backgroundColor = "red";
+        fakeDeafenBtn.onclick = () => window.deafen();
+
+        deafenBtn.parentNode.appendChild(fakeDeafenBtn);
     }
 
     removeFakeButton() {
-        let fakeDeafenBtn = document.querySelector("button[aria-label='Deafen'][style]");
+        let fakeDeafenBtn = document.querySelector("#fakeDeafenBtn");
         if (fakeDeafenBtn) fakeDeafenBtn.remove();
     }
 };
