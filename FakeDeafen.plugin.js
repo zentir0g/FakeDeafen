@@ -1,7 +1,7 @@
 /**
  * @name FakeDeafen
- * @author Harry Uchiha (z_zx)
- * @authorId 333014456399560705
+ * @author Harry Uchiha (vvoh)
+ * @authorId 1135886879372357764
  * @version 1.2.0
  * @description Creates a fake deafen button that does nothing while keeping the real functionality hidden.
  * @invite W6JfvA4y66
